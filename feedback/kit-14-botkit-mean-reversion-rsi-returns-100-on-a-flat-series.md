@@ -20,6 +20,8 @@ flat series RSI: 100
 ```
 `indicators.ts` returns 100 whenever `avgLoss === 0`, including `avgGain === 0`. On a quiet testnet book the mid often does not move for a full window, so an open position gets `reverted to mean (RSI 100)` and is sold at once (`strategy.ts`: `if (r >= this.cfg.rsiExit) return this.exit(...)`), and a flat window can never produce an oversold entry. Fix: return 50 (or undefined) when `avgGain === 0 && avgLoss === 0`.
 
+The identical function is copied in `strategies/ensemble/src/indicators.ts`, where it feeds the ensemble's RSI signal, so the same flat-window behaviour applies there.
+
 ## Evidence
 Output above, kit's own `rsi()` under tsx, 2026-11-02.
 
