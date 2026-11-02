@@ -20,10 +20,10 @@ WS docs, `trades:snapshot`: `trades | array<object> | required` ("Contains the m
 {"channel":"trades","type":"subscribed","symbols":["SOMI:USDso"]}
 {"channel":"trades","type":"snapshot","symbol":"SOMI:USDso","trades":null}
 ```
-`trades` is JSON `null` although REST has older trades (see ws-02: the snapshot only covers a short window and ignores `limit`). Clients typed against the documented schema (`snapshot.trades.map(...)`, `for t of snapshot.trades`) throw `TypeError` on quiet markets. The same subscription on the testnet host (`stg.api.dreamdex.io`, busy synthetic market) returns an array. Related effect: CCXT's `watchTrades('SOMI/USDSO')` on a quiet market resolves nothing for 70+ seconds because the snapshot is empty/null and no update arrives.
+`trades` is JSON `null` although REST has older trades (see ws-02: the snapshot only covers a short window and ignores `limit`). Clients typed against the documented schema (`snapshot.trades.map(...)`, `for t of snapshot.trades`) throw `TypeError` on quiet markets. The same subscription on the testnet host (`stg.api.dreamdex.io`, busier market) returns an array. Related effect: CCXT's `watchTrades('SOMI/USDSO')` on a quiet market resolves nothing for 70+ seconds because the snapshot is empty/null and no update arrives.
 
 ## Evidence
-2026-11-02T19:4x UTC, output above (mainnet host); testnet host returned `"trades":[{"id":"1793647969215-0",...}]` with 10 s-spaced synthetic trades.
+2026-11-02T19:4x UTC, output above (mainnet host); testnet host returned `"trades":[{"id":"1793647969215-0",...}]` with trades roughly 10 s apart.
 
 ## Environment
 - WS: wss://api.dreamdex.io/v0/ws/public (mainnet) and wss://stg.api.dreamdex.io/v0/ws/public
