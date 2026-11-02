@@ -1,5 +1,5 @@
 # perpPositionAnalytics.unrealizedPnl truncates toward zero but MarginBank floors it, so "re-sums to equity exactly" is off by 1 wei per losing position
-Severity: normal (wei-level, but the docs claim exactness)
+Severity: normal
 Area: SDK
 
 ## Steps to reproduce
