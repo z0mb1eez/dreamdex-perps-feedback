@@ -1,0 +1,1 @@
+{"name":"markets-probe","private":true,"type":"module","dependencies":{"@somnia-chain/markets-sdk":"0.32.1","viem":"^2"}}
