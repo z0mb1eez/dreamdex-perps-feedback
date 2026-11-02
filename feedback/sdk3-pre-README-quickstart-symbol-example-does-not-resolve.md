@@ -26,6 +26,8 @@ InvalidInputError @somnia-chain/markets-sdk: unknown symbol BTC-95000-31DEC26/US
 ```
 Live event-contract symbols are short-window series markets: the quote is `USDso` on mainnet (`tUSDC` on testnet), the expiry carries `-HHMM`, and the strike field is a large integer (`7805005`) rather than a round number. There are no day-dated BTC markets quoted in `USDC`, so the headline README example fails even after `loadMarkets()` (the error message's own hint).
 
+The spot examples are stale in the same way: `README.md` line 92, `docs/SPOT.md` line 3 and the `docs/EXCHANGE.md` grammar table (line 37) use `SOMI/USDC` as the spot symbol, but the only SOMI spot market is `SOMI/USDso` (mainnet list above: `SOMI/USDso`, `USDC.e/USDso`, `WBTC/USDso`, `WETH/USDso`), so `ex.market('SOMI/USDC')` also throws `unknown symbol`. `docs/EXCHANGE.md` line 44 shows the series symbol `ETH-171780-03JUL26-0930/TUSDC` while the synthesis rules (symbols.md) preserve case, which gives `tUSDC`.
+
 ## Evidence
 Output above from the published 0.32.1 package, 2026-11-02, against the production indexer.
 
