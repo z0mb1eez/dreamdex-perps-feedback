@@ -1,4 +1,4 @@
-# Market.closingMid is null on every event-contract market on both networks
+# Market.closingMid is null on all but one event-contract market on both networks
 Severity: normal
 Area: API
 
