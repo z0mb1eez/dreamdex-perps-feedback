@@ -1,5 +1,5 @@
 # Default (wallet-funded) placeOrder without approval reverts with OpenZeppelin ERC20InsufficientAllowance, which neither the Errors nor Functions pages document
-Severity: minor
+Severity: normal
 Area: docs
 
 ## Steps to reproduce
