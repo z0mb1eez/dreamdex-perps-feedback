@@ -35,6 +35,8 @@ qty 1.15 toRaw 1149999999999999911 | alignToLot 1140000000000000000  (expected 1
 `Number.prototype.toFixed(18)` prints the exact binary expansion of the double (0.172 -> "0.171999999999999986"), so the raw value is a few wei off the intended decimal. Rounding then goes the wrong way: bids that are exactly on a tick are rounded DOWN one whole tick, and quantities that are exactly a lot multiple lose one whole lot. Asks and a few lucky values are unaffected, so the bug is intermittent. Because `Pool.placeLimit` (`packages/core/src/pool.ts` lines 93-94) and `advanced/batch-7702` call `alignToTick(toRaw(price, quoteDecimals), ...)` / `alignToLot(toRaw(qty, baseDecimals), ...)`, every strategy built on the kit core can quote a different price/size than it computed, on 18-decimal pairs such as SOMI:USDso, with no error (the gotcha guard only checks that the result is on-grid, which it is).
 
 ## Evidence
+The kit already acknowledges this exact failure in a sibling package: `packages/perp-core/src/markets.ts` `toRaw` documents that `parseUnits(x.toFixed(18), 18)` "is the obvious conversion and it is wrong: `(0.0888).toFixed(18)` is \"0.088800000000000004\", four wei off the tick grid" and uses `toFixed(Math.min(decimals, 9))` instead; `packages/core/src/quant.ts` `toRaw` still uses the unfixed form.
+
 Output above from `node kq.mjs` run 2026-11-02 with Node 22 and viem from the kit's lockfile, against the kit's compiled `packages/core/dist/quant.js` (source: `packages/core/src/quant.ts`, `toRaw`). Suggested fix: format with a decimal-safe path (e.g. `parseUnits(String(human), decimals)` for numbers that stringify without exponent, or Decimal-style scaling as in the Python port).
 
 ## Environment
