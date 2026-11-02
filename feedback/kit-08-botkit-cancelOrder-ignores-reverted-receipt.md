@@ -29,6 +29,8 @@ The function resolves with the hash as if the cancel succeeded. `Pool.cancel()` 
 ## Evidence
 Output of `node cx.mjs` above (stubbed receipt `status: "reverted"`); source lines in `packages/core/src/execute.ts` as listed. This is a code-path reproduction: it needs no funds and does not touch the chain.
 
+The same helper pattern is in `packages/core/src/operator.ts`: `send()` awaits the receipt and returns the hash without checking `status`, so `withdrawVault`, `depositVault`, `grantOperator` and `revokeOperator` also report success for a reverted transaction (a reverted `revokeOperator` would leave an operator authorized while the caller believes it was revoked).
+
 The Python port has the same gap: `packages/core-py/dreamdex_core/execute.py::cancel_order` returns `receipt["transactionHash"].hex()` without checking `receipt["status"]`, while `place_order` raises `TX_REVERTED` on `status != 1`; `ensure_allowance` also ignores the approve receipt.
 
 ## Environment
