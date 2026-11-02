@@ -1,6 +1,7 @@
 # dreamDEX Perps Builder Bounty: Feedback track
 
-Reproducible feedback items for the dreamDEX Perps API, SDK and documentation on the Somnia testnets.
-One item per file in `feedback/`, in the format requested by the program (Severity, Area, Steps, Expected, Actual, Evidence, Environment).
+22 reproducible feedback items for the dreamDEX Perps API, WebSocket API, SDK and documentation on the Somnia testnets (Hideki perps testnet, chain 50383, and the Shannon/mainnet spot deployments referenced from the same docs). One item per file in `feedback/`, in the format requested by the program (Severity, Area, Steps to reproduce, Expected, Actual, Evidence, Environment).
 
-Method: documentation claims were compared with live responses from the public endpoints (REST, WebSocket, JSON-RPC, indexer GraphQL) and with the published `@somnia-chain/markets-sdk@0.32.1` package and `dreamdex-bot-kit`. Every item was re-run at least twice. The checks were read-only and rate-limited. AI tools assisted with the testing and drafting; all evidence is real captured output.
+Method: every documentation claim was compared against a live response from the public endpoints (REST, WebSocket, JSON-RPC, indexer GraphQL) or against the published `@somnia-chain/markets-sdk@0.32.1` package and `dreamdex-bot-kit`. Every item was reproduced at least twice with real timestamps, and several were cross-checked a second time independently (different script, same result) before inclusion. All checks were read-only, rate-limited, and sent no transactions. AI tools assisted with the testing and drafting; all evidence shown is real captured output, not invented.
+
+Severity: 2 major, 20 normal. Areas: docs (14), API (6), SDK (1), contracts (1).
