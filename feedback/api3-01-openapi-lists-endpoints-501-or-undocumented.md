@@ -3,7 +3,7 @@ Severity: normal
 Area: API
 
 ## Steps to reproduce
-1. `curl -s https://api.dreamdex.io/.well-known/oapi.json` (also on `stg.api.dreamdex.io`; note: not under `/v0/`, see ccxt-05 where the CCXT source links the `/v0/.well-known/oapi.json` 404). It lists 62 operations.
+1. `curl -s https://api.dreamdex.io/.well-known/oapi.json` (also on `stg.api.dreamdex.io`; note: not under `/v0/`, see ccxt-05 where the CCXT source links the `/v0/.well-known/oapi.json` 404). It lists 56 operations.
 2. `curl -s -i https://stg.api.dreamdex.io/v0/liquidations` and `.../v0/markets/SOMI:USDso/liquidations` (same on api.dreamdex.io).
 3. Compare the spec's paths to the HTTP API pages (Overview, Market Data, Trading, Builder Fees, Vault, Wallets, Portfolio, Authentication, Error Handling): `GET /v0/trades/all`, `GET /v0/stop-orders`, `GET /v0/account/{wallet}/history`, `POST /v0/account/margin/{approve,deposit,withdraw}`, `/v0/referral*`, `/v0/liquidations` do not appear in any of them.
 
