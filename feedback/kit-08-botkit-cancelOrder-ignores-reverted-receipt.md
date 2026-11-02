@@ -29,5 +29,7 @@ The function resolves with the hash as if the cancel succeeded. `Pool.cancel()` 
 ## Evidence
 Output of `node cx.mjs` above (stubbed receipt `status: "reverted"`); source lines in `packages/core/src/execute.ts` as listed. This is a code-path reproduction: it needs no funds and does not touch the chain.
 
+The Python port has the same gap: `packages/core-py/dreamdex_core/execute.py::cancel_order` returns `receipt["transactionHash"].hex()` without checking `receipt["status"]`, while `place_order` raises `TX_REVERTED` on `status != 1`; `ensure_allowance` also ignores the approve receipt.
+
 ## Environment
 dreamdex-bot-kit main (packages/core TypeScript), Node 22, viem 2.x.
